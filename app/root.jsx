@@ -6,8 +6,13 @@ import {
   Outlet,
   Scripts,
   ScrollRestoration,
+  json,
+  useLoaderData,
+  NavLink,
+  Form,
 } from "@remix-run/react";
 import styles from "./tailwind.css";
+import { authenticator } from "./services/auth.server";
 
 export const links = () => [
   {
@@ -17,10 +22,18 @@ export const links = () => [
 ];
 
 export function meta() {
-  return [{ title: "Work Journal" }];
+  return [{ title: "Chess Events - Find Yours Here" }];
+}
+
+export async function loader({ request }) {
+  const user = await authenticator.isAuthenticated(request);
+
+  return json({ user });
 }
 
 export default function App() {
+  const { user } = useLoaderData();
+
   return (
     <html lang="en">
       <head>
@@ -30,10 +43,33 @@ export default function App() {
         <Links />
       </head>
       <body>
-        <Outlet />
-        <ScrollRestoration />
-        <Scripts />
-        <LiveReload />
+        <header>
+          <nav>
+            <ul>
+              <li>
+                <NavLink to="signin">Home</NavLink>
+              </li>
+              <li>
+                <NavLink to="signin">Events</NavLink>
+              </li>
+              <li>
+                {user ? (
+                  <Form method="post" action="/signout">
+                    <button type="submit">Logud</button>
+                  </Form>
+                ) : (
+                  <NavLink to="signin">Login</NavLink>
+                )}
+              </li>
+            </ul>
+          </nav>
+        </header>
+        <div id="content">
+          <Outlet />
+          <ScrollRestoration />
+          <Scripts />
+          <LiveReload />
+        </div>
       </body>
     </html>
   );

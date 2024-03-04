@@ -1,4 +1,5 @@
 import { mongoose } from "mongoose";
+import bcrypt from "bcrypt";
 
 const { Schema } = mongoose;
 
@@ -23,10 +24,57 @@ const entrySchema = new Schema(
   { timestamps: true },
 );
 
+const userSchema = new Schema(
+  {
+    username: {
+      type: String,
+      required: [true, "Username Required"],
+      minLength: [5, "Username Too Short. (5 characters required)"],
+      maxLength: [20, "Username Too Long. (Max 20 characters allowed)"],
+      unique: true
+    },
+    password: {
+      type: String,
+      required: [true, "Password Required"],
+      minLength: [8, "Password Too Short. (8 characters required)"],
+      select: false
+    },
+    firstName: {
+      type: String,
+      required: [true, "Firstname Required"],
+    },
+    lastName: {
+      type: String,
+      required: [true, "Lastname Required"],
+    }
+  },
+  // Automatically add `createdAt` and `updatedAt` timestamps:
+  // https://mongoosejs.com/docs/timestamps.html
+  { timestamps: true },
+);
+
+userSchema.pre("save", async function(next) {
+  const user = this;
+
+  if(!user.isModified("password")) {
+    return next();
+  }
+
+  const salt = await bcrypt.genSalt(10);
+  user.password = await bcrypt.hash(user.password, salt);
+  next();
+})
+
+
 // For each model you want to create, please define the model's name, the
 // associated schema (defined above), and the name of the associated collection
 // in the database (which will be created automatically).
 export const models = [
+  {
+    name: "User",
+    schema: userSchema,
+    collection: "users",
+  },
   {
     name: "Entry",
     schema: entrySchema,

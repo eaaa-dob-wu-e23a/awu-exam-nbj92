@@ -1,3 +1,114 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+
+:root {
+    font-size: 10px;
+    font-family: monospace;
+}
+
+/****************** HEADER ******************/
+
+header {
+    width: 100vw;
+    background: rgba(79, 64, 210,1);
+    box-shadow: 1px 1px 5px black;
+    height: 100px;
+    position:fixed;
+    
+    
+}
+
+nav {
+    background: hotpink;
+    width: 100vw;
+    /* margin: 0rem 2rem;
+    padding: 2rem 0; */
+    height: 100%;
+}
+nav ul {
+    display: flex;
+    /* justify-content: space-around; */
+    align-items: center;
+    background: yellowgreen;
+    height: 100%;
+    font-size: 2.7rem;
+    gap: 7rem;
+    padding: 0 7rem;
+}
+
+nav ul li {
+
+}
+nav ul li:last-child
+{
+    margin-left: auto;
+}
+
+
+#content {
+    padding-top: 100px;
+    height: 100vh;
+    display:flex;
+}
+
+/****************** LOGIN ******************/
+
+#login {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /* height: 100vh; */
+    flex-grow: 1;
+}
+.form {
+    display: flex;
+    flex-direction: column;
+    width: 30vw;
+    justify-content: center;
+    align-items: center;
+    /* background: yellow; */
+    font-size: 1.6rem;
+    border-radius: 20px;
+    border: 1px solid rgb(68, 68, 123);
+}
+
+.form h1 {
+    margin: 20px 0;
+    font-size: 3rem;
+}
+
+label {
+    display: flex;
+    flex-direction: column;
+    width: 50%;
+    /* background:hotpink; */
+}
+
+label span {
+    margin: 0.5rem 0 0.3rem 1rem;
+}
+
+input {
+border: 1px solid grey;
+border-radius: 2rem;
+padding: 0.5rem 1rem;
+font-size:1.4rem;
+margin-bottom: 0.5rem;
+/* width: 50%; */
+/* align-self: center; */
+}
+
+.form button {
+    /* padding: 5px 10px; */
+    /* height: 10px; */
+    /* border: 1px solid hotpink; */
+    /* background-color: aqua; */
+    margin: 2rem 1rem;
+    padding: 0.5rem 4rem;
+    border-radius: 2rem;
+    color: white;
+    box-shadow: inset 4rem 4rem 0.1rem rgb(79, 64, 210), 0.1rem 0.1rem 0.5rem black;
+}
+
