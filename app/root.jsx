@@ -47,20 +47,28 @@ export default function App() {
           <nav>
             <ul>
               <li>
-                <NavLink to="signin">Home</NavLink>
+                <NavLink to="/">Home</NavLink>
               </li>
               <li>
-                <NavLink to="signin">Events</NavLink>
+                <NavLink to="events">Events</NavLink>
               </li>
-              <li>
-                {user ? (
-                  <Form method="post" action="/signout">
-                    <button type="submit">Logud</button>
-                  </Form>
-                ) : (
+
+              {user ? (
+                <>
+                  <li>
+                    <NavLink to="profile">Profile</NavLink>
+                  </li>
+                  <li>
+                    <Form method="post" action="/signout">
+                      <button type="submit">Logud</button>
+                    </Form>
+                  </li>
+                </>
+              ) : (
+                <li>
                   <NavLink to="signin">Login</NavLink>
-                )}
-              </li>
+                </li>
+              )}
             </ul>
           </nav>
         </header>

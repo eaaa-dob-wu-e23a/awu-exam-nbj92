@@ -5,57 +5,103 @@
 
 :root {
     font-size: 10px;
-    font-family: monospace;
+    font-family: monospace, sans-serif;
 }
 
 /****************** HEADER ******************/
 
 header {
     width: 100vw;
-    background: rgba(79, 64, 210,1);
+    /* background: rgba(79, 64, 210,1); */
     box-shadow: 1px 1px 5px black;
     height: 100px;
     position:fixed;
+    z-index: 5;
     
     
 }
 
 nav {
-    background: hotpink;
+    /* background: hotpink; */
     width: 100vw;
     /* margin: 0rem 2rem;
     padding: 2rem 0; */
     height: 100%;
+    /* color: rgba(255, 255, 255, 0.823); */
 }
-nav ul {
+ul {
     display: flex;
     /* justify-content: space-around; */
     align-items: center;
-    background: yellowgreen;
+    /* background: yellowgreen; */
     height: 100%;
     font-size: 2.7rem;
     gap: 7rem;
     padding: 0 7rem;
+    color: rgba(255, 255, 255, 0.823);
+    background: rgba(79, 64, 210,1);
 }
 
-nav ul li {
-
+nav ul .active {
+    text-decoration: underline;
 }
+
 nav ul li:last-child
 {
     margin-left: auto;
 }
 
+/****************** SUBMENU ******************/
+
+.submenu {
+    margin-top: -40px;
+    margin-bottom: 40px;
+    height: 40px;
+    /* width: auto; */
+
+}
+.submenu ul {
+gap: 0;
+padding:0;
+font-size: 1.7rem;
+width: fit-content;
+    
+}
+.submenu ul li {
+    display: flex;
+    /* align-items: center; */
+    justify-content: center;
+    height: 100%;
+    /* padding: 0; */
+    border: 1px solid olive;
+    /* background: yellowgreen; */
+    
+    white-space: nowrap;
+}
+
+
+.submenu a.active {
+    box-shadow: inset 1px 1px 10px black;
+}
+.submenu button {
+    width: 20rem;
+    height: 100%;
+}
+
+
+/****************** CONTENT ******************/
 
 #content {
-    padding-top: 100px;
-    height: 100vh;
+    padding: 140px 50px 40px;
+    min-height: 100vh;
     display:flex;
+    font-size: 2.3rem;
+    flex-direction: column;
 }
 
 /****************** LOGIN ******************/
 
-#login {
+.form-section {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -90,25 +136,19 @@ label span {
     margin: 0.5rem 0 0.3rem 1rem;
 }
 
-input {
+input, textarea {
 border: 1px solid grey;
 border-radius: 2rem;
 padding: 0.5rem 1rem;
 font-size:1.4rem;
 margin-bottom: 0.5rem;
-/* width: 50%; */
-/* align-self: center; */
 }
 
 .form button {
-    /* padding: 5px 10px; */
-    /* height: 10px; */
-    /* border: 1px solid hotpink; */
-    /* background-color: aqua; */
     margin: 2rem 1rem;
     padding: 0.5rem 4rem;
     border-radius: 2rem;
     color: white;
-    box-shadow: inset 4rem 4rem 0.1rem rgb(79, 64, 210), 0.1rem 0.1rem 0.5rem black;
+    box-shadow: inset 120rem 120rem 0.1rem rgb(79, 64, 210), 0.1rem 0.1rem 0.5rem black;
 }
 

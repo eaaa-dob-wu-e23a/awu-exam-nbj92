@@ -22,7 +22,7 @@ export default function SignupPage() {
   const [firstname, setFirstname] = useState();
   const [lastname, setLastname] = useState();
   return (
-    <div id="login">
+    <div className="form-section">
       <FormComponent title="Welcome to Signup Page" method="post">
         <InputComponent
           name="firstName"

@@ -2,6 +2,7 @@ export default function InputComponent({
   name,
   children,
   defaultValue = "",
+  placeholder = "",
   onChangeHandler = null,
   type = "text",
 }) {
@@ -14,6 +15,7 @@ export default function InputComponent({
         id={name}
         onChange={onChangeHandler}
         defaultValue={defaultValue}
+        placeholder={placeholder}
       />
     </label>
   );

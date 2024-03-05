@@ -49,7 +49,7 @@ export default function SigninPage() {
   console.log(`password: ${password}`);
 
   return (
-    <div id="login">
+    <div className="form-section">
       <FormComponent title={`Welcome to Signin Page`} method="post">
         <InputComponent
           name="username"

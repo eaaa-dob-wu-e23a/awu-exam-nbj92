@@ -53,6 +53,38 @@ const userSchema = new Schema(
   { timestamps: true },
 );
 
+const eventSchema = new Schema(
+  {
+    title: {
+      type: String,
+      required: [true, "Title Required"],
+      minLength: [10, "Title Too Short. (10 Characters required)"],
+      maxLength: [40, "Title Too Long. (Max 40 Characters)"],
+      unique: true
+    },
+    date: {
+      type: Date,
+      required: [true, "Date Required"],
+    },
+    time: {
+      type: String,
+      required: [true, "Time Required"],
+    },
+    location: {
+      type: String,
+      required: [true, "Location Required"],
+    },
+    description: {
+      type: String,
+      default: "This Event has no description",
+      maxLength: [200, "Description Too Long. (Max 200 Characters"]
+    }
+  },
+  // Automatically add `createdAt` and `updatedAt` timestamps:
+  // https://mongoosejs.com/docs/timestamps.html
+  { timestamps: true },
+);
+
 userSchema.pre("save", async function(next) {
   const user = this;
 
@@ -74,6 +106,11 @@ export const models = [
     name: "User",
     schema: userSchema,
     collection: "users",
+  },
+  {
+    name: "Event",
+    schema: eventSchema,
+    collection: "events",
   },
   {
     name: "Entry",
