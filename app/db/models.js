@@ -78,6 +78,11 @@ const eventSchema = new Schema(
       type: String,
       default: "This Event has no description",
       maxLength: [200, "Description Too Long. (Max 200 Characters"]
+    },
+    user: {
+      type: Schema.Types.ObjectId,
+      ref: 'User',
+      required: true
     }
   },
   // Automatically add `createdAt` and `updatedAt` timestamps:

@@ -8,6 +8,23 @@
     font-family: monospace, sans-serif;
 }
 
+
+input, textarea {
+border: 1px solid grey;
+border-radius: 2rem;
+padding: 0.5rem 1rem;
+font-size:1.4rem;
+margin-bottom: 0.5rem;
+}
+
+.form button, .btn {
+    margin: 2rem 1rem;
+    padding: 0.5rem 4rem;
+    border-radius: 2rem;
+    color: white;
+    box-shadow: inset 120rem 120rem 0.1rem rgb(79, 64, 210), 0.1rem 0.1rem 0.5rem black;
+}
+
 /****************** HEADER ******************/
 
 header {
@@ -99,6 +116,55 @@ width: fit-content;
     flex-direction: column;
 }
 
+
+/****************** CONTENT > EVENTS ******************/
+
+div[class*="event-"] {
+display: flex;
+}
+
+.event-container {
+    gap: 5rem;
+}
+
+.event {
+    border-radius: 2rem;
+    width: 50%;
+}
+
+.event-header {
+    background: rgb(68, 68, 123);
+    border-radius: 2rem 2rem 0 0;
+    color: white;
+    padding: 2rem 3rem;
+    padding-bottom: 0.5rem;
+}
+
+.event-header > div, .event-description {
+    flex-direction: column;
+}
+
+.event-header *:not(.event-title) {
+    font-size: 1.5rem;
+}
+.event-user {
+    margin-left: auto;
+    justify-content: space-around;
+}
+.event-description {
+    border: 1px solid rgb(68, 68, 123);
+    border-radius: 0 0 2rem 2rem;
+    font-size: 2rem;
+    padding: 1rem 3rem;
+}
+.event-description > span {
+    font-size: 1.5rem;
+    text-decoration: underline;
+    margin: 1rem 0;
+}
+
+
+
 /****************** LOGIN ******************/
 
 .form-section {
@@ -136,19 +202,5 @@ label span {
     margin: 0.5rem 0 0.3rem 1rem;
 }
 
-input, textarea {
-border: 1px solid grey;
-border-radius: 2rem;
-padding: 0.5rem 1rem;
-font-size:1.4rem;
-margin-bottom: 0.5rem;
-}
 
-.form button {
-    margin: 2rem 1rem;
-    padding: 0.5rem 4rem;
-    border-radius: 2rem;
-    color: white;
-    box-shadow: inset 120rem 120rem 0.1rem rgb(79, 64, 210), 0.1rem 0.1rem 0.5rem black;
-}
 

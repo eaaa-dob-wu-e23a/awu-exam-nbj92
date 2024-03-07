@@ -1,33 +1,32 @@
-import {
-  NavLink,
-  Outlet,
-  json,
-  useLoaderData,
-  useLocation,
-} from "@remix-run/react";
+import { NavLink, Outlet, json, useLoaderData } from "@remix-run/react";
+import { authenticator } from "~/services/auth.server";
+
+export async function loader({ request }) {
+  const user = await authenticator.isAuthenticated(request);
+  return json({ user });
+}
 
 export default function EventsPage() {
-  // const { url } = useLoaderData();
+  const { user } = useLoaderData();
 
-  const loc = useLocation().pathname;
-
-  console.log(loc);
   return (
     <>
-      <div className="submenu">
-        <ul>
-          <li>
-            <NavLink to="" end>
-              <button>All Events</button>
-            </NavLink>
-          </li>
-          <li>
-            <NavLink to="create">
-              <button>Create Event</button>
-            </NavLink>
-          </li>
-        </ul>
-      </div>
+      {user ? (
+        <div className="submenu">
+          <ul>
+            <li>
+              <NavLink to="" end>
+                <button>All Events</button>
+              </NavLink>
+            </li>
+            <li>
+              <NavLink to="create">
+                <button>Create Event</button>
+              </NavLink>
+            </li>
+          </ul>
+        </div>
+      ) : null}
 
       <Outlet />
     </>
