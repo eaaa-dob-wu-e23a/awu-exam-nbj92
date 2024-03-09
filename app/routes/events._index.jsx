@@ -1,10 +1,33 @@
-import { Link, json, useLoaderData } from "@remix-run/react";
+import {
+  Form,
+  Link,
+  json,
+  useLoaderData,
+  useNavigation,
+  useSubmit,
+} from "@remix-run/react";
+import { useEffect } from "react";
 import mongoose from "mongoose";
 import { dateFormat } from "~/functions/dateFormat";
 
 export async function loader({ request }) {
+  const url = new URL(request.url);
+  const q = url.searchParams.get("q");
   const eventModel = mongoose.models.Event;
-  const events = await eventModel.find({}).populate("user");
+  // console.log(q);
+  let events = [];
+
+  if (q !== null) {
+    events = await eventModel
+      .find({
+        title: { $regex: q, $options: "i" },
+      })
+      .sort({ date: -1 });
+  } else {
+    events = await eventModel.find({});
+  }
+
+  // console.log(events);
 
   const eventList = events.map((e) => {
     return {
@@ -19,11 +42,24 @@ export async function loader({ request }) {
     };
   });
 
-  return json({ eventList });
+  return json({ eventList, q });
 }
 
 export default function AllEventsPage() {
-  const { eventList } = useLoaderData();
+  const { eventList, q } = useLoaderData();
+  const submit = useSubmit();
+
+  const navigation = useNavigation();
+  const searching =
+    navigation.location &&
+    new URLSearchParams(navigation.location.search).has("q");
+
+  useEffect(() => {
+    const searchField = document.getElementById("q");
+    if (searchField instanceof HTMLInputElement) {
+      searchField.value = q || "";
+    }
+  }, [q]);
 
   const listEvents = eventList.map((e) => (
     <div className="event" key={e._id}>
@@ -47,5 +83,28 @@ export default function AllEventsPage() {
     </div>
   ));
 
-  return <div className="event-container">{listEvents}</div>;
+  return (
+    <>
+      <Form
+        onChange={(e) => {
+          const isFirstSearch = q === null;
+          submit(e.currentTarget, { replace: !isFirstSearch });
+        }}
+      >
+        <label htmlFor="q" className="relative flex flex-row gap-8 h-20 mb-8">
+          <span>Search for event</span>
+          <input
+            className={`text-3xl ${searching ? "loading" : ""}`}
+            name="q"
+            id="q"
+            size="50"
+            type="search"
+            defaultValue={q || ""}
+          />
+          <div id="search-spinner" aria-hidden hidden={!searching} />
+        </label>
+      </Form>
+      <div className="event-container">{listEvents}</div>
+    </>
+  );
 }

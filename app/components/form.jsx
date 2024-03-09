@@ -1,7 +1,7 @@
 import { Form } from "@remix-run/react";
 
 export default function FormComponent({
-  title,
+  title = "",
   method,
   children,
   action = "",

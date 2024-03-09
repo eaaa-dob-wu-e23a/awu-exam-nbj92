@@ -10,22 +10,26 @@ export async function action({ request }) {
   try {
     const formData = await request.formData();
     const data = Object.fromEntries(formData);
-    data.user = user._id;
+
+    console.log(user);
+
+    data.user = {
+      _id: user._id,
+      username: user.username,
+      firstName: user.firstName,
+      lastName: user.lastName,
+    };
+
+    console.log(data);
 
     const eventModel = mongoose.models.Event;
     await eventModel.create(data);
 
     return redirect("/events");
   } catch (error) {
-    // return json({ error: error.message["error"] });
-
-    console.log(error.errors);
+    console.log(error);
     return json({ error: error.errors });
   }
-
-  //   console.log(data);
-
-  //   return null;
 }
 
 export async function loader({ request }) {
@@ -39,7 +43,7 @@ export default function EventCreatePage() {
   //   const { error } = useActionData();
   // console.log(error);
   const actionData = useActionData();
-  console.log(actionData);
+  // console.log(actionData);
 
   //   console.log(actionData);
 

@@ -96,6 +96,8 @@ const salt = await bcrypt.genSalt(10);
   }
   if(await Event.countDocuments() === 0) {
 
+    erik.password = undefined;
+    kisser.password = undefined;
     const events = [
       {
         title: "FIDE World Chess Championships 2024",
@@ -103,14 +105,16 @@ const salt = await bcrypt.genSalt(10);
         time: "12:40",
         location: "Köln",
         description: "Vi holder VM i Köln, kom glad hvis du har en rating over 2400. eller bare gerne vil overvære god skak.",
-        user: erik._id
+        // user: erik._id
+        user: erik
   
       }, {
         title: "Airthings Masters 2024",
         date: new Date(2023,5,4),
         time: "09:00",
         location: "Köln",
-        user: kisser._id
+        // user: kisser._id
+        user: kisser
       },
   
       // {

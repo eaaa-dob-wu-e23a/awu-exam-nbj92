@@ -52,6 +52,24 @@ const userSchema = new Schema(
   // https://mongoosejs.com/docs/timestamps.html
   { timestamps: true },
 );
+// console.log(userSchema);
+// console.log(userSchema.obj.username);
+// console.log(userSchema.obj.firstName);
+// console.log(userSchema.obj.lastName);
+
+const userSubschema = new Schema(
+  {
+    username: {type: String,
+      required: [true, "Username Required"],
+      minLength: [5, "Username Too Short. (5 characters required)"],
+      maxLength: [20, "Username Too Long. (Max 20 characters allowed)"],
+      },
+    firstName: userSchema.obj.firstName,
+    lastName: userSchema.obj.lastName
+  }
+);
+
+// console.log(userSubschema);
 
 const eventSchema = new Schema(
   {
@@ -60,7 +78,7 @@ const eventSchema = new Schema(
       required: [true, "Title Required"],
       minLength: [10, "Title Too Short. (10 Characters required)"],
       maxLength: [40, "Title Too Long. (Max 40 Characters)"],
-      unique: true
+      unique: [true, "Username already exists"]
     },
     date: {
       type: Date,
@@ -80,9 +98,10 @@ const eventSchema = new Schema(
       maxLength: [200, "Description Too Long. (Max 200 Characters"]
     },
     user: {
-      type: Schema.Types.ObjectId,
-      ref: 'User',
-      required: true
+      type: userSubschema,
+      // type: Schema.Types.ObjectId,
+      // ref: 'User',
+      required: true,
     }
   },
   // Automatically add `createdAt` and `updatedAt` timestamps:
@@ -111,6 +130,11 @@ export const models = [
     name: "User",
     schema: userSchema,
     collection: "users",
+  },
+  {
+    name: "UserSub",
+    schema: userSubschema,
+    collection: "events",
   },
   {
     name: "Event",

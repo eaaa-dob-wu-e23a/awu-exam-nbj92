@@ -10,11 +10,11 @@
 
 
 input, textarea {
-border: 1px solid grey;
-border-radius: 2rem;
-padding: 0.5rem 1rem;
-font-size:1.4rem;
-margin-bottom: 0.5rem;
+    border: 1px solid grey;
+    border-radius: 2rem;
+    padding: 0.5rem 1rem;
+    font-size:1.4rem;
+    margin-bottom: 0.5rem;
 }
 
 .form button, .btn {
@@ -29,28 +29,19 @@ margin-bottom: 0.5rem;
 
 header {
     width: 100vw;
-    /* background: rgba(79, 64, 210,1); */
     box-shadow: 1px 1px 5px black;
     height: 100px;
     position:fixed;
     z-index: 5;
-    
-    
 }
 
 nav {
-    /* background: hotpink; */
     width: 100vw;
-    /* margin: 0rem 2rem;
-    padding: 2rem 0; */
     height: 100%;
-    /* color: rgba(255, 255, 255, 0.823); */
 }
 ul {
     display: flex;
-    /* justify-content: space-around; */
     align-items: center;
-    /* background: yellowgreen; */
     height: 100%;
     font-size: 2.7rem;
     gap: 7rem;
@@ -74,29 +65,20 @@ nav ul li:last-child
     margin-top: -40px;
     margin-bottom: 40px;
     height: 40px;
-    /* width: auto; */
-
 }
 .submenu ul {
-gap: 0;
-padding:0;
-font-size: 1.7rem;
-width: fit-content;
-    
+    gap: 0;
+    padding:0;
+    font-size: 1.7rem;
+    width: fit-content;
 }
 .submenu ul li {
     display: flex;
-    /* align-items: center; */
     justify-content: center;
     height: 100%;
-    /* padding: 0; */
-    border: 1px solid olive;
-    /* background: yellowgreen; */
-    
+    border: 1px solid olive;    
     white-space: nowrap;
 }
-
-
 .submenu a.active {
     box-shadow: inset 1px 1px 10px black;
 }
@@ -116,6 +98,27 @@ width: fit-content;
     flex-direction: column;
 }
 
+/****************** CONTENT > INDEX ******************/
+
+#welcome {
+    width: 100%;
+    /* background-color: yellowgreen; */
+    justify-content: center;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    flex-grow: 1;
+}
+#welcome h1 {
+    font-size: 5rem;
+    margin-top: 1rem;
+    
+    text-transform: uppercase;
+}
+
+#welcome small + a {
+    margin: 3rem 0;
+}
 
 /****************** CONTENT > EVENTS ******************/
 
@@ -203,4 +206,35 @@ label span {
 }
 
 
+/****************** SEARCH ******************/
 
+#search-spinner {
+    width: 3rem;
+    height: 3rem;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24'%3E%3Cpath stroke='%23000' strokeLinecap='round' strokeLinejoin='round' strokeWidth='2' d='M20 4v5h-.582m0 0a8.001 8.001 0 00-15.356 2m15.356-2H15M4 20v-5h.581m0 0a8.003 8.003 0 0015.357-2M4.581 15H9' /%3E%3C/svg%3E");
+    animation: spin 1s infinite linear;
+    position: absolute;
+    left: 24rem;
+    top: 0.8rem;
+  }
+
+  input[type="search"].loading {
+    background-image: none;
+  }
+  @keyframes spin {
+    from {
+      transform: rotate(0deg);
+    }
+    to {
+      transform: rotate(360deg);
+    }
+  }
+
+  input[type="search"] {
+    padding-left: 4rem;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' class='h-6 w-6' fill='none' viewBox='0 0 24 24' stroke='%23999' stroke-width='2'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' d='M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z' /%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: 0.625rem 0.75rem;
+    background-size: 3rem;
+    position: relative;
+  }

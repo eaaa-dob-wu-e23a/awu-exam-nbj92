@@ -1,6 +1,4 @@
 export function dateFormat(date) {
-  // const eventDate = new Date(event?.date);
-
   const year = date.getFullYear();
 
   const day =

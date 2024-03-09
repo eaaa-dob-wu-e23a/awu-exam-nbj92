@@ -33,7 +33,7 @@ export async function loader({ request }) {
 
 export async function action({ request }) {
   await authenticator.authenticate("user-pass", request, {
-    successRedirect: "/",
+    successRedirect: "/profile",
     failureRedirect: "/signin",
   });
 

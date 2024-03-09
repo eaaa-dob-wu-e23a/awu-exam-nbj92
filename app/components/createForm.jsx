@@ -5,7 +5,7 @@ import { dateFormat } from "~/functions/dateFormat";
 
 export default function CreateFormComponent({
   form_type,
-  form_title,
+  form_title = "",
   event = null,
 }) {
   const eventDate = dateFormat(new Date(event?.date));
