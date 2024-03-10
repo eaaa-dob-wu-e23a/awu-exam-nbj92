@@ -128,11 +128,12 @@ display: flex;
 
 .event-container {
     gap: 5rem;
+    flex-wrap: wrap;
 }
 
 .event {
     border-radius: 2rem;
-    width: 50%;
+    width: calc(50% - 5rem);
 }
 
 .event-header {
@@ -140,30 +141,116 @@ display: flex;
     border-radius: 2rem 2rem 0 0;
     color: white;
     padding: 2rem 3rem;
-    padding-bottom: 0.5rem;
+    padding-bottom: 1rem;
+    height: 100px;
+    
 }
 
-.event-header > div, .event-description {
+.event-header > div {
+    display: flex;
     flex-direction: column;
-}
+    justify-content: space-around;
+    }
+
+/* .event-header > div, .event-description {
+    
+} */
 
 .event-header *:not(.event-title) {
     font-size: 1.5rem;
 }
 .event-user {
     margin-left: auto;
-    justify-content: space-around;
+    /* justify-content: space-around; */
 }
 .event-description {
     border: 1px solid rgb(68, 68, 123);
     border-radius: 0 0 2rem 2rem;
     font-size: 2rem;
     padding: 1rem 3rem;
+    flex-direction: column;
 }
 .event-description > span {
     font-size: 1.5rem;
     text-decoration: underline;
     margin: 1rem 0;
+}
+
+/****************** EVENTS > DETAILS ******************/
+
+.event-details-container {
+    /* background: hotpink; */
+    flex-grow: 1;
+    /* display: flex; */
+    justify-content: center;
+    /* align-items:center; */
+    
+}
+
+.event-details-main {
+    /* background: yellowgreen; */
+    margin: 0rem 0rem;
+    padding: 2rem 3rem;
+    width: 80rem;
+    border: 1px solid rgb(68, 68, 123);
+    border-radius: 20px 0px 0px 20px;
+    /* height: 40rem; */
+    /* display:flex; */
+    flex-direction: column;
+    gap: 2rem;
+}
+.event-details-main h1 {
+    /* background: yellowgreen; */
+    height: 6rem;
+    padding-bottom: 0.2rem;
+    border-bottom: 1px solid rgb(68, 68, 123);
+    border-width: 2px;
+    font-size:3.5rem;
+}
+
+.event-details-main div span {
+    /* font-size: rem; */
+    text-decoration: underline;
+    font-size: medium;
+}
+
+.event-details {
+    background:  rgb(68, 68, 123);
+    padding: 3rem 3rem;
+    border-radius: 0px 20px 20px 0px;
+    color:white;
+    font-size:medium;
+    /* height: 40rem; */
+    width: 30rem;
+
+    /* display: flex; */
+    flex-direction: column;
+    /* gap: 4rem; */
+    
+}
+
+.event-details-btn {
+    margin-bottom: 8rem;
+}
+
+.event-details form {
+    justify-content: space-between;
+    width: 100%;
+}
+
+.btn-event {
+    border: 1px solid rgb(137, 144, 164);
+    width: 11.5rem;
+}
+
+.event-details-info {
+    flex-direction: column;
+    gap: 1rem;
+    flex-grow: 1;
+}
+
+.btn-go {
+    width: inherit;
 }
 
 

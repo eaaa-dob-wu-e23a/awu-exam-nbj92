@@ -24,7 +24,7 @@ export async function action({ request, params }) {
 
   await event.save();
 
-  return redirect("/events");
+  return redirect(`/events/${params.eventId}`);
 }
 
 export default function EditEventPage() {

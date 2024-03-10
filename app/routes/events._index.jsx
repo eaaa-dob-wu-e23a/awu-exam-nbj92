@@ -24,7 +24,7 @@ export async function loader({ request }) {
       })
       .sort({ date: -1 });
   } else {
-    events = await eventModel.find({});
+    events = await eventModel.find({}).sort({ date: -1 });
   }
 
   // console.log(events);
@@ -67,7 +67,7 @@ export default function AllEventsPage() {
         <div className="event-header">
           <div className="event-title">
             {e.title}
-            <div>{e.location}</div>
+            <div>Location: {e.location}</div>
           </div>
 
           <div className="event-user">
