@@ -9,20 +9,21 @@ export async function loader({ request, params }) {
 
   const user = await authenticator.isAuthenticated(request);
 
+  console.log(event);
+
   return json({ event, user });
 }
 
 export default function EventDetailPage() {
   const { event, user } = useLoaderData();
-  // console.log(user?._id);
-  // console.log(event?.user?._id);
-  // console.log(user?._id === event.user._id);
 
-  function handleSubmit(e) {
-    if (!confirm("Confirm To Delete Event")) {
+  function handleSubmit(e, text) {
+    if (!confirm(`Confirm To ${text} Event`)) {
       e.preventDefault();
     }
   }
+
+  const registered = event.participants.find((e) => e._id === user?._id);
 
   return (
     <div className="event-details-container">
@@ -37,7 +38,11 @@ export default function EventDetailPage() {
         <div className="event-details-btn">
           {user?._id === event.user._id ? (
             <>
-              <Form action="delete" method="post" onSubmit={handleSubmit}>
+              <Form
+                action="delete"
+                method="post"
+                onSubmit={(e) => handleSubmit(e, "Delete")}
+              >
                 <Link to="edit">
                   <button className="btn-event" type="button">
                     Edit
@@ -56,11 +61,25 @@ export default function EventDetailPage() {
         <div className="event-">
           {user && user._id !== event.user._id ? (
             <>
-              <Form action="delete" method="post" onSubmit={handleSubmit}>
-                <button className="btn-event btn-go" type="button">
-                  Tilmeld Event
-                </button>
-              </Form>
+              {registered ? (
+                <Form
+                  action="enroll-cancel"
+                  method="post"
+                  onSubmit={(e) => handleSubmit(e, "Cancel Registration For")}
+                >
+                  <button className="btn-event btn-go">
+                    Cancel Enrollment
+                  </button>
+                </Form>
+              ) : (
+                <Form
+                  action="enroll"
+                  method="post"
+                  onSubmit={(e) => handleSubmit(e, "Register For")}
+                >
+                  <button className="btn-event btn-go">Enroll</button>
+                </Form>
+              )}
             </>
           ) : null}
         </div>

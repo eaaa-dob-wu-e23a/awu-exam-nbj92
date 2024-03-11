@@ -1,4 +1,4 @@
-export function dateFormat(date) {
+export function dateFormat(date, edit = false) {
   const year = date.getFullYear();
 
   const day =
@@ -10,5 +10,5 @@ export function dateFormat(date) {
       ? `0${date.getMonth() + 1}`
       : date.getMonth() + 1;
 
-  return `${year}-${month}-${day}`;
+  return edit ? `${year}-${month}-${day}` : `${day}-${month}-${year}`;
 }

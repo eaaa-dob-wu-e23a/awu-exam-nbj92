@@ -27,7 +27,7 @@ export async function loader({ request }) {
     events = await eventModel.find({}).sort({ date: -1 });
   }
 
-  // console.log(events);
+  console.log(events);
 
   const eventList = events.map((e) => {
     return {

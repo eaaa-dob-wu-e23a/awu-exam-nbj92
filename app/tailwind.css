@@ -136,7 +136,7 @@ display: flex;
     width: calc(50% - 5rem);
 }
 
-.event-header {
+.event-header, .event-list > div h3 {
     background: rgb(68, 68, 123);
     border-radius: 2rem 2rem 0 0;
     color: white;
@@ -163,7 +163,7 @@ display: flex;
     margin-left: auto;
     /* justify-content: space-around; */
 }
-.event-description {
+.event-description, .event-list > div > div {
     border: 1px solid rgb(68, 68, 123);
     border-radius: 0 0 2rem 2rem;
     font-size: 2rem;
@@ -191,7 +191,8 @@ display: flex;
     /* background: yellowgreen; */
     margin: 0rem 0rem;
     padding: 2rem 3rem;
-    width: 80rem;
+    min-width: 80rem;
+    max-width: 100rem;
     border: 1px solid rgb(68, 68, 123);
     border-radius: 20px 0px 0px 20px;
     /* height: 40rem; */
@@ -221,7 +222,8 @@ display: flex;
     color:white;
     font-size:medium;
     /* height: 40rem; */
-    width: 30rem;
+    min-width: 30rem;
+    max-width: 40rem;
 
     /* display: flex; */
     flex-direction: column;
@@ -324,4 +326,43 @@ label span {
     background-position: 0.625rem 0.75rem;
     background-size: 3rem;
     position: relative;
+  }
+
+  /****************** CONTENT > PROFILE ******************/
+
+.profile-welcome, .event-list h3 {
+    font-size: 4rem;
+}
+
+  .event-list {
+    /* background: hotpink; */
+    /* border-radius: 20px; */
+    /* flex-direction: column; */
+    gap: 7rem;
+    /* padding: 2rem 3rem; */
+    margin-top: 5rem;
+    /* justify-content: space-between; */
+  }
+  
+
+  .event-list > div {
+    width: 50%;
+  }
+  .event-list > div > div {
+    padding: 0;
+    /* background: yellow; */
+    
+  }
+ 
+  .event-list-main {
+    padding: 2rem 2rem;
+    /* background: blue; */
+    border-bottom: 1px solid rgb(68, 68, 123);
+    justify-content: space-between;
+  }
+
+  
+
+  .event-list-main:last-child {
+    border-bottom: 0;    
   }

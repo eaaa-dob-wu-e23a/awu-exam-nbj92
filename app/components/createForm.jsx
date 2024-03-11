@@ -8,7 +8,8 @@ export default function CreateFormComponent({
   form_title = "",
   event = null,
 }) {
-  const eventDate = dateFormat(new Date(event?.date));
+  const eventDate = dateFormat(new Date(event?.date), true);
+  console.log(eventDate);
   const [title, setTitle] = useState(event?.title);
   const [date, setDate] = useState(eventDate);
   const [description, setDescription] = useState(event?.description);

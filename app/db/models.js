@@ -46,7 +46,10 @@ const userSchema = new Schema(
     lastName: {
       type: String,
       required: [true, "Lastname Required"],
-    }
+    },
+    events : [
+     {type: Schema.Types.ObjectId, ref: 'Event'},
+    ]
   },
   // Automatically add `createdAt` and `updatedAt` timestamps:
   // https://mongoosejs.com/docs/timestamps.html
@@ -102,8 +105,10 @@ const eventSchema = new Schema(
       // type: Schema.Types.ObjectId,
       // ref: 'User',
       required: true,
-    }
-  },
+    },
+    participants: {
+      type: [userSubschema]
+  }},
   // Automatically add `createdAt` and `updatedAt` timestamps:
   // https://mongoosejs.com/docs/timestamps.html
   { timestamps: true },

@@ -20,6 +20,7 @@ async function verifyUser(username, password) {
   }
 
   user.password = undefined;
+  user.events = undefined;
 
   return user;
 }

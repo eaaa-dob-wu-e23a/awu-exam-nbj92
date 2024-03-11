@@ -1,14 +1,4 @@
-import {
-  Link,
-  Links,
-  Meta,
-  Scripts,
-  isRouteErrorResponse,
-  json,
-  redirect,
-  useLoaderData,
-  useRouteError,
-} from "@remix-run/react";
+import { Link, redirect, useRouteError } from "@remix-run/react";
 import mongoose from "mongoose";
 import { authenticator } from "~/services/auth.server";
 
@@ -20,12 +10,22 @@ export async function action({ request, params }) {
   const eventModel = mongoose.models.Event;
   const event = await eventModel.findById({ _id: params.eventId });
 
-  if (user._id !== event.user._id.toString()) {
+  if (!event) {
+    throw new Response("The event you were looking for doesn't exist.", {
+      status: 404,
+      statusText: "Not Found",
+    });
+  } else if (user?._id !== event?.user?._id.toString()) {
     throw new Response("", { status: 401, statusText: "Unauthorized" });
   }
   await eventModel.deleteOne({ _id: params.eventId });
 
-  return redirect("/profile");
+  return new Response(null, {
+    status: 302,
+    headers: {
+      Location: "/profile",
+    },
+  });
 }
 
 export async function loader({ request, params }) {
@@ -55,6 +55,8 @@ export function ErrorBoundary() {
           In order to delete your event go to {" --> "}
           <Link to={`/events/${error.data}`}>Event Site</Link>
         </p>
+      ) : error.status === 404 ? (
+        <p>{error.data} </p>
       ) : null}
     </div>
   );

@@ -10,6 +10,7 @@ import {
   useLoaderData,
   NavLink,
   Form,
+  useRouteError,
 } from "@remix-run/react";
 import styles from "./tailwind.css";
 import { authenticator } from "./services/auth.server";
@@ -78,6 +79,33 @@ export default function App() {
           <Scripts />
           <LiveReload />
         </div>
+      </body>
+    </html>
+  );
+}
+
+export function ErrorBoundary() {
+  const error = useRouteError();
+  console.error(error);
+  return (
+    <html>
+      <head>
+        <title>Oh no!</title>
+        <Meta />
+        <Links />
+      </head>
+      <body className="text-5xl">
+        <div className="mt-24 flex flex-col justify-center items-center w-screen">
+          <h1>Whoops</h1>
+          <p>An Error has occured we're working on a solution!</p>
+          <p>
+            This Route might not exist - Go to{" "}
+            <Link to="/" className="underline">
+              Home
+            </Link>
+          </p>
+        </div>
+        <Scripts />
       </body>
     </html>
   );
