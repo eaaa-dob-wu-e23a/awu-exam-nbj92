@@ -1,8 +1,14 @@
 import { json, redirect, useLoaderData } from "@remix-run/react";
 import mongoose, { MongooseError } from "mongoose";
 import CreateFormComponent from "~/components/createForm";
+import { authenticator } from "~/services/auth.server";
+import invariant from "tiny-invariant";
 
-export async function loader({ params }) {
+export async function loader({ params, request }) {
+  await authenticator.isAuthenticated(request, {
+    failureRedirect: "/events",
+  });
+  invariant(params.eventId, "Missing eventId param");
   const eventModel = mongoose.models.Event;
   const event = await eventModel.findById({ _id: params.eventId });
   return json({ event });

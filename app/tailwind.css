@@ -102,7 +102,6 @@ nav ul li:last-child
 
 #welcome {
     width: 100%;
-    /* background-color: yellowgreen; */
     justify-content: center;
     display: flex;
     align-items: center;
@@ -112,7 +111,6 @@ nav ul li:last-child
 #welcome h1 {
     font-size: 5rem;
     margin-top: 1rem;
-    
     text-transform: uppercase;
 }
 
@@ -123,7 +121,7 @@ nav ul li:last-child
 /****************** CONTENT > EVENTS ******************/
 
 div[class*="event-"] {
-display: flex;
+    display: flex;
 }
 
 .event-container {
@@ -142,19 +140,14 @@ display: flex;
     color: white;
     padding: 2rem 3rem;
     padding-bottom: 1rem;
-    height: 100px;
-    
+    height: 100px; 
 }
 
 .event-header > div {
     display: flex;
     flex-direction: column;
     justify-content: space-around;
-    }
-
-/* .event-header > div, .event-description {
-    
-} */
+}
 
 .event-header *:not(.event-title) {
     font-size: 1.5rem;
@@ -162,8 +155,8 @@ display: flex;
 .event-header .event-title > span { font-size: 3rem;text-transform: uppercase;}
 .event-user {
     margin-left: auto;
-    /* justify-content: space-around; */
 }
+
 .event-description, .event-list > div > div {
     border: 1px solid rgb(68, 68, 123);
     border-radius: 0 0 2rem 2rem;
@@ -171,6 +164,7 @@ display: flex;
     padding: 1rem 3rem;
     flex-direction: column;
 }
+
 .event-description > span {
     font-size: 1.5rem;
     text-decoration: underline;
@@ -180,24 +174,17 @@ display: flex;
 /****************** EVENTS > DETAILS ******************/
 
 .event-details-container {
-    /* background: hotpink; */
     flex-grow: 1;
-    /* display: flex; */
-    justify-content: center;
-    /* align-items:center; */
-    
+    justify-content: center;    
 }
 
 .event-details-main {
-    /* background: yellowgreen; */
     margin: 0rem 0rem;
     padding: 2rem 3rem;
-    min-width: 80rem;
-    max-width: 100rem;
+    min-width: 85rem;
+    max-width: 85rem;
     border: 1px solid rgb(68, 68, 123);
     border-radius: 20px 0px 0px 20px;
-    /* height: 40rem; */
-    /* display:flex; */
     flex-direction: column;
     gap: 2rem;
 }
@@ -206,7 +193,6 @@ display: flex;
     text-transform: uppercase;
 }
 .event-details-main h1 {
-    /* background: yellowgreen; */
     height: 6rem;
     padding-bottom: 0.2rem;
     border-bottom: 1px solid rgb(68, 68, 123);
@@ -214,10 +200,12 @@ display: flex;
     font-size:3.5rem;
 }
 
-.event-details-main div span {
-    /* font-size: rem; */
-    text-decoration: underline;
+.event-details-main div button {
     font-size: medium;
+}
+
+.event-details-main div button.show {
+    text-decoration: underline;
 }
 
 .event-details {
@@ -226,14 +214,9 @@ display: flex;
     border-radius: 0px 20px 20px 0px;
     color:white;
     font-size:medium;
-    /* height: 40rem; */
     min-width: 30rem;
     max-width: 40rem;
-
-    /* display: flex; */
     flex-direction: column;
-    /* gap: 4rem; */
-    
 }
 
 .event-details-btn {
@@ -261,23 +244,21 @@ display: flex;
 }
 
 
-
 /****************** LOGIN ******************/
 
 .form-section {
     display: flex;
     justify-content: center;
     align-items: center;
-    /* height: 100vh; */
     flex-grow: 1;
 }
+
 .form {
     display: flex;
     flex-direction: column;
     width: 30vw;
     justify-content: center;
     align-items: center;
-    /* background: yellow; */
     font-size: 1.6rem;
     border-radius: 20px;
     border: 1px solid rgb(68, 68, 123);
@@ -292,7 +273,6 @@ label {
     display: flex;
     flex-direction: column;
     width: 50%;
-    /* background:hotpink; */
 }
 
 label span {
@@ -310,28 +290,29 @@ label span {
     position: absolute;
     left: 24rem;
     top: 0.8rem;
-  }
+}
 
-  input[type="search"].loading {
+input[type="search"].loading {
     background-image: none;
-  }
-  @keyframes spin {
+}
+
+@keyframes spin {
     from {
-      transform: rotate(0deg);
+        transform: rotate(0deg);
     }
     to {
-      transform: rotate(360deg);
+        transform: rotate(360deg);
     }
-  }
+}
 
-  input[type="search"] {
+input[type="search"] {
     padding-left: 4rem;
     background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' class='h-6 w-6' fill='none' viewBox='0 0 24 24' stroke='%23999' stroke-width='2'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' d='M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z' /%3E%3C/svg%3E");
     background-repeat: no-repeat;
     background-position: 0.625rem 0.75rem;
     background-size: 3rem;
     position: relative;
-  }
+}
 
   /****************** CONTENT > PROFILE ******************/
 
@@ -339,35 +320,25 @@ label span {
     font-size: 4rem;
 }
 
-  .event-list {
-    /* background: hotpink; */
-    /* border-radius: 20px; */
-    /* flex-direction: column; */
+.event-list {
     gap: 7rem;
-    /* padding: 2rem 3rem; */
     margin-top: 5rem;
-    /* justify-content: space-between; */
-  }
+}
   
-
-  .event-list > div {
+.event-list > div {
     width: 50%;
-  }
-  .event-list > div > div {
+}
+
+.event-list > div > div {
     padding: 0;
-    /* background: yellow; */
-    
-  }
+}
  
-  .event-list-main {
+.event-list-main {
     padding: 2rem 2rem;
-    /* background: blue; */
     border-bottom: 1px solid rgb(68, 68, 123);
     justify-content: space-between;
-  }
+}
 
-  
-
-  .event-list-main:last-child {
+.event-list-main:last-child {
     border-bottom: 0;    
-  }
+}

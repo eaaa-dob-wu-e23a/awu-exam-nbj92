@@ -1,9 +1,18 @@
-import { Form, Link, json, useLoaderData } from "@remix-run/react";
+import {
+  Form,
+  Link,
+  json,
+  useLoaderData,
+  useRouteError,
+} from "@remix-run/react";
 import mongoose from "mongoose";
+import { useState } from "react";
 import { dateFormat } from "~/functions/dateFormat";
 import { authenticator } from "~/services/auth.server";
+import invariant from "tiny-invariant";
 
 export async function loader({ request, params }) {
+  invariant(params.eventId, "Missing eventId param");
   const eventModel = mongoose.models.Event;
   const event = await eventModel.findById({ _id: params.eventId });
 
@@ -14,12 +23,20 @@ export async function loader({ request, params }) {
 
 export default function EventDetailPage() {
   const { event, user } = useLoaderData();
+  const [description, setDescription] = useState(true);
+  const [participants, setParticipants] = useState(false);
 
   function handleSubmit(e, text) {
     if (!confirm(`Confirm To ${text} Event`)) {
       e.preventDefault();
     }
   }
+
+  const participantList = event.participants.map((e) => (
+    <div key={e._id}>
+      {e.firstName} {e.lastName} ({e.username})
+    </div>
+  ));
 
   const registered = event.participants.find((e) => e._id === user?._id);
 
@@ -28,8 +45,34 @@ export default function EventDetailPage() {
       <div className="event-details-main">
         <h1>{event.title}</h1>
         <div className="flex flex-col gap-4">
-          <span> Description</span>
-          {event.description}
+          <span>
+            <button
+              onClick={() => {
+                setDescription(true);
+                setParticipants(false);
+              }}
+              className={description ? "show" : ""}
+            >
+              {" "}
+              Description
+            </button>{" "}
+            {participantList.length > 0 ? (
+              <button
+                onClick={() => {
+                  setDescription(false);
+                  setParticipants(true);
+                }}
+                className={participants ? "show" : ""}
+              >
+                Participants
+              </button>
+            ) : null}
+          </span>
+          {description
+            ? event.description
+            : participants
+              ? participantList
+              : null}
         </div>
       </div>
       <div className="event-details">
@@ -83,6 +126,18 @@ export default function EventDetailPage() {
           ) : null}
         </div>
       </div>
+    </div>
+  );
+}
+
+export function ErrorBoundary() {
+  const error = useRouteError();
+  console.log(error);
+  return (
+    <div>
+      <h1>
+        ERROR: {error.status} {error.statusText}
+      </h1>
     </div>
   );
 }
