@@ -118,5 +118,5 @@ export const models = [
     name: "Event",
     schema: eventSchema,
     collection: "events",
-  },,
+  },
 ];
