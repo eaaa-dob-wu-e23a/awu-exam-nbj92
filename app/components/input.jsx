@@ -5,6 +5,7 @@ export default function InputComponent({
   placeholder = "",
   onChangeHandler = null,
   type = "text",
+  required = false,
 }) {
   return (
     <label htmlFor={name}>
@@ -16,6 +17,7 @@ export default function InputComponent({
         onChange={onChangeHandler}
         defaultValue={defaultValue}
         placeholder={placeholder}
+        required={required}
       />
     </label>
   );

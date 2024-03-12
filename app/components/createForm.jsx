@@ -2,21 +2,21 @@ import { useState } from "react";
 import FormComponent from "./form";
 import InputComponent from "./input";
 import { dateFormat } from "~/functions/dateFormat";
+import { useActionData } from "@remix-run/react";
 
 export default function CreateFormComponent({
   form_type,
   form_title = "",
   event = null,
 }) {
+  const error = useActionData();
   const eventDate = dateFormat(new Date(event?.date), true);
-  console.log(eventDate);
+
   const [title, setTitle] = useState(event?.title);
   const [date, setDate] = useState(eventDate);
   const [description, setDescription] = useState(event?.description);
   const [time, setTime] = useState(event?.time);
   const [location, setLocation] = useState(event?.location);
-
-  const error = "error";
 
   return (
     <div className="form-section">
@@ -28,14 +28,22 @@ export default function CreateFormComponent({
         >
           Title
         </InputComponent>
+        {error ? error?.title : null}
+
         <InputComponent
           name="date"
           type="date"
           defaultValue={date}
-          onChangeHandler={(e) => setDate(e.target.value)}
+          onChangeHandler={(e) => {
+            setDate(e.target.value);
+            // console.log(date);
+            // console.log(typeof date);
+          }}
         >
           Date
         </InputComponent>
+        {error ? error?.date : null}
+
         <InputComponent
           name="time"
           type="time"
@@ -44,6 +52,8 @@ export default function CreateFormComponent({
         >
           Time
         </InputComponent>
+        {error ? error?.time : null}
+
         <InputComponent
           name="location"
           defaultValue={location}
@@ -51,6 +61,8 @@ export default function CreateFormComponent({
         >
           Location
         </InputComponent>
+        {error ? error?.location : null}
+
         <label htmlFor="description">
           <span>Description</span>
           <textarea
@@ -62,8 +74,9 @@ export default function CreateFormComponent({
             onChange={(e) => setDescription(e.target.value)}
           ></textarea>
         </label>
+        {error ? error?.description : null}
+
         <button>{form_type} Event</button>
-        <div>{error ? error : ""}</div>
       </FormComponent>
     </div>
   );

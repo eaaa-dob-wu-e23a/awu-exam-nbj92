@@ -1,5 +1,5 @@
-import { redirect, useActionData, json } from "@remix-run/react";
-import mongoose from "mongoose";
+import { redirect, json } from "@remix-run/react";
+import mongoose, { MongooseError } from "mongoose";
 import CreateFormComponent from "~/components/createForm";
 import { authenticator } from "~/services/auth.server";
 
@@ -7,11 +7,36 @@ export async function action({ request }) {
   const user = await authenticator.isAuthenticated(request, {
     failureRedirect: "/events",
   });
+  const error = {};
   try {
     const formData = await request.formData();
     const data = Object.fromEntries(formData);
 
+    if (typeof data.title !== "string") {
+      error.title = "Title must be a string";
+    }
+    if (typeof data.date !== "string") {
+      error.date = "Date must be a string";
+    }
+    if (typeof data.time !== "string") {
+      error.time = "Time must be a string";
+    }
+    if (typeof data.location !== "string") {
+      error.location = "Location must be a string";
+    }
+    if (typeof data.description !== "string") {
+      error.description = "Description must be a string";
+    }
+
+    if (Object.keys(error).length > 0) {
+      return json(error);
+    }
+
     console.log(user);
+
+    if (data.description.length === 0) {
+      data.description = undefined;
+    }
 
     data.user = {
       _id: user._id,
@@ -26,84 +51,29 @@ export async function action({ request }) {
     await eventModel.create(data);
 
     return redirect("/events");
-  } catch (error) {
-    console.log(error);
-    return json({ error: error.errors });
+  } catch (err) {
+    const errors = err.errors;
+
+    console.log(err);
+
+    if (err instanceof MongooseError && errors) {
+      Object.keys(errors).forEach((e) => {
+        error[e] = errors[e].message;
+      });
+      return json(error);
+    } else {
+      throw new Response("Bad Request", { status: 400 });
+    }
   }
 }
 
 export async function loader({ request }) {
-  const user = await authenticator.isAuthenticated(request, {
+  return await authenticator.isAuthenticated(request, {
     failureRedirect: "/events",
   });
-  return null;
 }
 
 export default function EventCreatePage() {
-  //   const { error } = useActionData();
-  // console.log(error);
-  const actionData = useActionData();
-  // console.log(actionData);
-
-  //   console.log(actionData);
-
-  const error = "hey";
-  //   const [title, setTitle] = useState();
-  //   const [date, setDate] = useState();
-  //   const [description, setDescription] = useState();
-  //   const [time, setTime] = useState();
-  //   const [location, setLocation] = useState();
-
-  //   return (
-  //     <div className="form-section">
-  //       <FormComponent method="post" title="Create A Chess Event">
-  //         <InputComponent
-  //           name="title"
-  //           defaultValue={title}
-  //           onChangeHandler={(e) => setTitle(e.target.value)}
-  //         >
-  //           Title
-  //         </InputComponent>
-  //         <InputComponent
-  //           name="date"
-  //           type="date"
-  //           defaultValue={date}
-  //           onChangeHandler={(e) => setDate(e.target.value)}
-  //         >
-  //           Date
-  //         </InputComponent>
-  //         <InputComponent
-  //           name="time"
-  //           type="time"
-  //           defaultValue={time}
-  //           onChangeHandler={(e) => setTime(e.target.value)}
-  //         >
-  //           Time
-  //         </InputComponent>
-  //         <InputComponent
-  //           name="location"
-  //           defaultValue={location}
-  //           onChangeHandler={(e) => setLocation(e.target.value)}
-  //         >
-  //           Location
-  //         </InputComponent>
-  //         <label htmlFor="description">
-  //           <span>Description</span>
-  //           <textarea
-  //             name="description"
-  //             id="description"
-  //             cols="30"
-  //             rows="7"
-  //             defaultValue={description}
-  //             onChange={(e) => setDescription(e.target.value)}
-  //           ></textarea>
-  //         </label>
-  //         <button>Create Event</button>
-  //         <div>{error ? error : ""}</div>
-  //       </FormComponent>
-  //     </div>
-  //   );
-
   return (
     <CreateFormComponent form_type="Create" form_title="Create A Chess Event" />
   );

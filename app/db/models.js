@@ -98,7 +98,7 @@ const eventSchema = new Schema(
     description: {
       type: String,
       default: "This Event has no description",
-      maxLength: [200, "Description Too Long. (Max 200 Characters"]
+      maxLength: [200, "Description Too Long. (Max 200 Characters)"]
     },
     user: {
       type: userSubschema,

@@ -57,6 +57,7 @@ export default function EventDetailPage() {
           <div>Location: {event.location}</div>
           <div>Date: {dateFormat(new Date(event.date))}</div>
           <div>Event Start: {event.time}</div>
+          <div>Creator: {event.user.username}</div>
         </div>
         <div className="event-">
           {user && user._id !== event.user._id ? (

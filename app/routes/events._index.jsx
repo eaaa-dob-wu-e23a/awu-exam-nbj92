@@ -66,7 +66,7 @@ export default function AllEventsPage() {
       <Link to={e._id}>
         <div className="event-header">
           <div className="event-title">
-            {e.title}
+            <span>{e.title}</span>
             <div>Location: {e.location}</div>
           </div>
 

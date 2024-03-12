@@ -17,10 +17,6 @@ export async function loader({ request }) {
     .populate("events")
     .select("events -_id")
     .exec();
-  // const events = await eventModel
-  //   .find({ "user._id": user._id })
-  //   .populate("participants")
-  //   .exec();
 
   [enrolls] = enrolls; // destructuring
   ({ events: enrolls } = enrolls); // destructuring
