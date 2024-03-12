@@ -5,7 +5,7 @@ export default async function seedDb() {
   // const entryCount = await mongoose.models.Entry.countDocuments();
   const userCount = await mongoose.models.User.countDocuments();
   const eventCount = await mongoose.models.Event.countDocuments();
-  if (userCount === 0 || eventCount === 0 ) {
+  if (userCount === 0 && eventCount === 0 ) {
     console.log("Seeding database...");
     insertData();
   }

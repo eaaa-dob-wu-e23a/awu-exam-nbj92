@@ -1,5 +1,4 @@
 import { Link, useLoaderData } from "@remix-run/react";
-import mongoose from "mongoose";
 import { commitSession, getSession } from "~/services/sessions.server";
 import { authenticator } from "~/services/auth.server";
 import { json } from "@remix-run/react";
@@ -15,7 +14,6 @@ export async function loader({ request }) {
   const session = await getSession(request.headers.get("Cookie"));
 
   const error = session.get("sessionErrorKey");
-  // console.log(error);
 
   if (user && error) {
     session.set(authenticator.sessionErrorKey, null);
@@ -44,9 +42,6 @@ export default function SigninPage() {
   const [username, setUsername] = useState();
   const [password, setPassword] = useState();
   const { error } = useLoaderData();
-
-  console.log(`username: ${username}`);
-  console.log(`password: ${password}`);
 
   return (
     <div className="form-section">

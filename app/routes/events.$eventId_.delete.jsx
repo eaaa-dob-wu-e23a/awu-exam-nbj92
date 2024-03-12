@@ -1,4 +1,4 @@
-import { Link, redirect, useRouteError } from "@remix-run/react";
+import { Link, useRouteError } from "@remix-run/react";
 import mongoose from "mongoose";
 import { authenticator } from "~/services/auth.server";
 

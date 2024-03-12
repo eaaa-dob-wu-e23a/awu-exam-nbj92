@@ -1,7 +1,6 @@
 import { redirect, useActionData, json } from "@remix-run/react";
-import mongoose, { Error, MongooseError } from "mongoose";
+import mongoose, { MongooseError } from "mongoose";
 import { useState } from "react";
-import { AuthorizationError } from "remix-auth";
 import FormComponent from "~/components/form";
 import InputComponent from "~/components/input";
 
@@ -31,19 +30,12 @@ export async function action({ request }) {
     const userModel = mongoose.models.User;
     const user = await userModel.create(data);
 
-    console.log(user);
-
     return redirect("/signin");
   } catch (err) {
     const errors = err.errors;
-    // const error = {};
-
-    console.log(err);
 
     if (err instanceof MongooseError && errors) {
       Object.keys(errors).forEach((e) => {
-        // console.log(errors[e].message);
-        // console.log(errors[e] instanceof Error.ValidatorError);
         error[e] = errors[e].message;
       });
       return json(error);
@@ -57,7 +49,6 @@ export default function SignupPage() {
   const error = useActionData();
   const [username, setUsername] = useState();
   const [password, setPassword] = useState();
-  // const [passwordConfirm, setPasswordConfirm] = useState();
   const [firstname, setFirstname] = useState();
   const [lastname, setLastname] = useState();
 
@@ -68,7 +59,7 @@ export default function SignupPage() {
           name="firstName"
           defaultValue={firstname}
           onChangeHandler={(e) => setFirstname(e.target.value)}
-          // required={true}
+          required={true}
         >
           First name
         </InputComponent>
@@ -77,7 +68,7 @@ export default function SignupPage() {
           name="lastName"
           defaultValue={lastname}
           onChangeHandler={(e) => setLastname(e.target.value)}
-          // required={true}
+          required={true}
         >
           Last name
         </InputComponent>
@@ -87,7 +78,7 @@ export default function SignupPage() {
           name="username"
           defaultValue={username}
           onChangeHandler={(e) => setUsername(e.target.value)}
-          // required={true}
+          required={true}
         >
           Username
         </InputComponent>
@@ -98,21 +89,11 @@ export default function SignupPage() {
           type="password"
           defaultValue={password}
           onChangeHandler={(e) => setPassword(e.target.value)}
-          // required={true}
+          required={true}
         >
           Password
         </InputComponent>
         {error ? error?.password : null}
-        {/* <InputComponent
-          name="passwordConfirm"
-          type="password"
-          defaultValue={passwordConfirm}
-          onChangeHandler={(e) => setPasswordConfirm(e.target.value)}
-          // required={true}
-        >
-          Confirm Password
-        </InputComponent>
-        {error ? error?.passwordConfirm : null} */}
         <div>
           <button type="submit">Sign Up</button>
         </div>

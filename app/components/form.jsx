@@ -11,7 +11,6 @@ export default function FormComponent({
       <div className="form">
         <h1>{title}</h1>
         {children}
-        {/* <div>{error ? error?.message : null}</div> */}
       </div>
     </Form>
   );

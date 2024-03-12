@@ -32,8 +32,6 @@ export async function action({ request }) {
       return json(error);
     }
 
-    console.log(user);
-
     if (data.description.length === 0) {
       data.description = undefined;
     }
@@ -45,16 +43,12 @@ export async function action({ request }) {
       lastName: user.lastName,
     };
 
-    console.log(data);
-
     const eventModel = mongoose.models.Event;
     await eventModel.create(data);
 
     return redirect("/events");
   } catch (err) {
     const errors = err.errors;
-
-    console.log(err);
 
     if (err instanceof MongooseError && errors) {
       Object.keys(errors).forEach((e) => {

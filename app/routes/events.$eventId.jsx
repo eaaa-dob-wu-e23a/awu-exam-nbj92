@@ -9,8 +9,6 @@ export async function loader({ request, params }) {
 
   const user = await authenticator.isAuthenticated(request);
 
-  console.log(event);
-
   return json({ event, user });
 }
 

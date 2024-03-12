@@ -1,6 +1,5 @@
 import { Form, Link, json, useLoaderData } from "@remix-run/react";
 import mongoose from "mongoose";
-import { dateFormat } from "~/functions/dateFormat";
 import { authenticator } from "~/services/auth.server";
 
 export async function loader({ request }) {
@@ -48,13 +47,6 @@ export default function ProfilePage() {
           <button>DELETE</button>
         </Form>
       </div>
-      {/* <Form
-        action={`/events/65ef248f78de63ac6ce83d47/delete`}
-        method="post"
-        onSubmit={(e) => handleSubmit(e, "Delete")}
-      >
-        <button>DELETE</button>
-      </Form> */}
     </div>
   ));
 

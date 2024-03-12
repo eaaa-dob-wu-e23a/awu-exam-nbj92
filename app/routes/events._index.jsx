@@ -14,7 +14,6 @@ export async function loader({ request }) {
   const url = new URL(request.url);
   const q = url.searchParams.get("q");
   const eventModel = mongoose.models.Event;
-  // console.log(q);
   let events = [];
 
   if (q !== null) {
@@ -26,8 +25,6 @@ export async function loader({ request }) {
   } else {
     events = await eventModel.find({}).sort({ date: -1 });
   }
-
-  console.log(events);
 
   const eventList = events.map((e) => {
     return {

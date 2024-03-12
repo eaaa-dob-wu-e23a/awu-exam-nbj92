@@ -25,6 +25,7 @@ export default function CreateFormComponent({
           name="title"
           defaultValue={title}
           onChangeHandler={(e) => setTitle(e.target.value)}
+          required={true}
         >
           Title
         </InputComponent>
@@ -34,11 +35,8 @@ export default function CreateFormComponent({
           name="date"
           type="date"
           defaultValue={date}
-          onChangeHandler={(e) => {
-            setDate(e.target.value);
-            // console.log(date);
-            // console.log(typeof date);
-          }}
+          onChangeHandler={(e) => setDate(e.target.value)}
+          required={true}
         >
           Date
         </InputComponent>
@@ -49,6 +47,7 @@ export default function CreateFormComponent({
           type="time"
           defaultValue={time}
           onChangeHandler={(e) => setTime(e.target.value)}
+          required={true}
         >
           Time
         </InputComponent>
@@ -58,6 +57,7 @@ export default function CreateFormComponent({
           name="location"
           defaultValue={location}
           onChangeHandler={(e) => setLocation(e.target.value)}
+          required={true}
         >
           Location
         </InputComponent>

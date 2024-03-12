@@ -49,8 +49,6 @@ export async function action({ request, params }) {
   } catch (err) {
     const errors = err.errors;
 
-    console.log(err);
-
     if (err instanceof MongooseError && errors) {
       Object.keys(errors).forEach((e) => {
         error[e] = errors[e].message;

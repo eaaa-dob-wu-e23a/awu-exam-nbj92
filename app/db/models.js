@@ -3,27 +3,6 @@ import bcrypt from "bcrypt";
 
 const { Schema } = mongoose;
 
-const entrySchema = new Schema(
-  {
-    date: {
-      type: Date,
-      required: true,
-    },
-    type: {
-      type: String,
-      enum: ["work", "learning", "interesting-thing"],
-      required: true,
-    },
-    text: {
-      type: String,
-      required: true,
-    },
-  },
-  // Automatically add `createdAt` and `updatedAt` timestamps:
-  // https://mongoosejs.com/docs/timestamps.html
-  { timestamps: true },
-);
-
 const userSchema = new Schema(
   {
     username: {
@@ -55,10 +34,7 @@ const userSchema = new Schema(
   // https://mongoosejs.com/docs/timestamps.html
   { timestamps: true },
 );
-// console.log(userSchema);
-// console.log(userSchema.obj.username);
-// console.log(userSchema.obj.firstName);
-// console.log(userSchema.obj.lastName);
+
 
 const userSubschema = new Schema(
   {
@@ -72,7 +48,6 @@ const userSubschema = new Schema(
   }
 );
 
-// console.log(userSubschema);
 
 const eventSchema = new Schema(
   {
@@ -102,8 +77,6 @@ const eventSchema = new Schema(
     },
     user: {
       type: userSubschema,
-      // type: Schema.Types.ObjectId,
-      // ref: 'User',
       required: true,
     },
     participants: {
@@ -145,10 +118,5 @@ export const models = [
     name: "Event",
     schema: eventSchema,
     collection: "events",
-  },
-  {
-    name: "Entry",
-    schema: entrySchema,
-    collection: "entries",
-  },
+  },,
 ];
