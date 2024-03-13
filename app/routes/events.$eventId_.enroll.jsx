@@ -1,8 +1,10 @@
 import { redirect } from "@remix-run/react";
 import mongoose from "mongoose";
+import invariant from "tiny-invariant";
 import { authenticator } from "~/services/auth.server";
 
 export async function action({ request, params }) {
+  invariant(params.eventId, "Missing eventId param");
   const user = await authenticator.isAuthenticated(request, {
     failureRedirect: "/",
   });

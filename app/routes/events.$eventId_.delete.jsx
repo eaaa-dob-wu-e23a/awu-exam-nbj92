@@ -1,8 +1,10 @@
 import { Link, useRouteError } from "@remix-run/react";
 import mongoose from "mongoose";
+import invariant from "tiny-invariant";
 import { authenticator } from "~/services/auth.server";
 
 export async function action({ request, params }) {
+  invariant(params.eventId, "Missing eventId param");
   const user = await authenticator.isAuthenticated(request, {
     failureRedirect: "/events",
   });
@@ -29,8 +31,8 @@ export async function action({ request, params }) {
 }
 
 export async function loader({ request, params }) {
+  invariant(params.eventId, "Missing eventId param");
   await authenticator.isAuthenticated(request, { failureRedirect: "/events" });
-  console.log(params.eventId);
   throw new Response(params.eventId, {
     status: 405,
     statusText: "Method Not Allowed",

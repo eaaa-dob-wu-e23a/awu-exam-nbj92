@@ -1,6 +1,7 @@
 import {
   Form,
   Link,
+  isRouteErrorResponse,
   json,
   useLoaderData,
   useRouteError,
@@ -15,6 +16,10 @@ export async function loader({ request, params }) {
   invariant(params.eventId, "Missing eventId param");
   const eventModel = mongoose.models.Event;
   const event = await eventModel.findById({ _id: params.eventId });
+
+  if (!event) {
+    throw new Response("", { status: 404, statusText: "NOT FOUND" });
+  }
 
   const user = await authenticator.isAuthenticated(request);
 
@@ -132,12 +137,27 @@ export default function EventDetailPage() {
 
 export function ErrorBoundary() {
   const error = useRouteError();
-  console.log(error);
   return (
     <div>
       <h1>
-        ERROR: {error.status} {error.statusText}
+        ERROR:{" "}
+        {isRouteErrorResponse(error) ? (
+          <span>
+            {error.status} {error.statusText}
+          </span>
+        ) : (
+          ""
+        )}
       </h1>
+
+      {error.status === 404 ? (
+        <p>
+          The Event doesn't exist. Go to {" --> "}{" "}
+          <Link to="/events">Events</Link>
+        </p>
+      ) : (
+        <p>Invalid EventId</p>
+      )}
     </div>
   );
 }

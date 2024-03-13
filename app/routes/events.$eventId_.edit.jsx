@@ -1,20 +1,39 @@
-import { json, redirect, useLoaderData } from "@remix-run/react";
+import {
+  Link,
+  isRouteErrorResponse,
+  json,
+  redirect,
+  useLoaderData,
+  useRouteError,
+} from "@remix-run/react";
 import mongoose, { MongooseError } from "mongoose";
 import CreateFormComponent from "~/components/createForm";
 import { authenticator } from "~/services/auth.server";
 import invariant from "tiny-invariant";
 
 export async function loader({ params, request }) {
-  await authenticator.isAuthenticated(request, {
+  invariant(params.eventId, "Missing eventId param");
+
+  const user = await authenticator.isAuthenticated(request, {
     failureRedirect: "/events",
   });
-  invariant(params.eventId, "Missing eventId param");
+
   const eventModel = mongoose.models.Event;
   const event = await eventModel.findById({ _id: params.eventId });
+
+  if (user._id !== event?.user._id.toString()) {
+    throw new Response("Permission Denied", {
+      status: 401,
+      statusText: "Unauthorized",
+    });
+  }
+
   return json({ event });
 }
 
 export async function action({ request, params }) {
+  invariant(params.eventId, "Missing eventId param");
+
   const eventModel = mongoose.models.Event;
   const event = await eventModel.findById({ _id: params.eventId });
 
@@ -74,5 +93,36 @@ export default function EditEventPage() {
       form_title="Edit Event"
       event={event}
     />
+  );
+}
+
+export function ErrorBoundary() {
+  const error = useRouteError();
+  return (
+    <div>
+      <h1>
+        ERROR:{" "}
+        {isRouteErrorResponse(error) ? (
+          <span>
+            {error.status} {error.statusText}
+          </span>
+        ) : (
+          ""
+        )}
+      </h1>
+
+      {error.status === 404 ? (
+        <p>
+          The Event doesn't exist. Go to {" --> "}{" "}
+          <Link to="/events">Events</Link>
+        </p>
+      ) : error.status === 401 ? (
+        <p>
+          {error.data}. Go to {" --> "} <Link to="/events">Events</Link>
+        </p>
+      ) : (
+        <p>Invalid EventId</p>
+      )}
+    </div>
   );
 }

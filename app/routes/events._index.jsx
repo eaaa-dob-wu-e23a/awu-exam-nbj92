@@ -21,9 +21,9 @@ export async function loader({ request }) {
       .find({
         title: { $regex: q, $options: "i" },
       })
-      .sort({ date: -1 });
+      .sort({ date: 1 });
   } else {
-    events = await eventModel.find({}).sort({ date: -1 });
+    events = await eventModel.find({}).sort({ date: 1 });
   }
 
   const eventList = events.map((e) => {
